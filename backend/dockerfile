@@ -1,0 +1,10 @@
+FROM mysql:5.7
+
+MAINTAINER me
+
+ENV MYSQL_DATABASE = groupomania
+    MYSL_ROOT_PASSWORD = sqlaureliesueur
+    
+ADD backend/db/db.sql /docker-entrypoint-initdb.d
+
+EXPOSE 3306
