@@ -121,6 +121,10 @@ h2 {
     z-index: 3; 
        
 }
+
+.navbar-nav{
+    margin-left: -11em;
+}
     
 .nav-link {
     color:black!important;
@@ -167,7 +171,7 @@ h2 {
     padding: 20px 17px 10px 50px;
     text-align: left;
 
-    & a, li {
+    & a {
         color: #FFF;
         margin-top: 0!important;
         margin-left: -3em;
@@ -175,7 +179,12 @@ h2 {
     &__close {
         text-align: right;
         font-size: 1.2em;
-    }      
+    }     
+    & li {
+        color: #FFF;
+        margin-top: 0!important;
+        margin-left: 13em; 
+    }
 }
   
 .img-narrow {

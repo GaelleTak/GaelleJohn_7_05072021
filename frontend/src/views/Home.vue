@@ -445,6 +445,7 @@ $color-tertiary: #6f757b;
         font-size: 1.2em!important;
         padding-bottom: 10px!important;
     }
+
 }
 
 </style>

@@ -163,7 +163,6 @@ h1,h2{
     
 ul, li {
     list-style: none;
-    width: 100%;
     margin-top: 4em;
     margin-left: 4em;
 }
@@ -209,6 +208,10 @@ a {
     .btn-add {
     margin-left: 15em;
     }
+
+    ul, li {
+    margin-left: 0em;
+    }
 }
    
 //Média query pour adapter la page au smartphone
@@ -232,6 +235,9 @@ a {
     }
     ul {
         padding: 0!important;
+    }
+      ul, li {
+    margin-left: 0em;
     }
 }
 
