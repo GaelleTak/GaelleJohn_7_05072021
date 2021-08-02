@@ -73,9 +73,9 @@ $color-secondary: #324392;
 .admin {
     position: fixed;
     right: 30px;
-    top: 70px;
+    top: 110px;
     z-index: 4;
-    color: #FFF;    
+    color:black;    
 }
  
 /*MEDIA QUERIES POUR ASSURER UNE MISE EN PAGE RESPONSIVE */
@@ -85,11 +85,6 @@ $color-secondary: #324392;
     .auth, .deconnect {
         right: 40px;
         top: 20px;
-    }
-    .admin {
-        width: 130px!important;
-        right: 80px;
-        font-size: 0.8em;
     }
 }
     
@@ -108,8 +103,6 @@ $color-secondary: #324392;
         font-size: 0.8em!important;
     }
     .admin {
-        width: 150px!important;
-        right: 80px;
         font-size: 0.7em;
     }
 }

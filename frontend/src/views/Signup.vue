@@ -20,7 +20,7 @@
                                        required
                                        v-model="user.username"
                                        name="username"
-                                       placeholder="Indiquez votre pseudo"/>
+                                       placeholder="Pseudo"/>
                                     <p class="error">{{ errors[0] }}</p><!--Une erreur s'affiche si l'input ne respecte pas les règles de ValidationProvider-->
                                 </div>
                             </ValidationProvider>
@@ -35,7 +35,7 @@
                                            required
                                            v-model="user.email"
                                            name="email"
-                                           placeholder="Indiquez votre adresse email"/>
+                                           placeholder="Adresse email"/>
                                     <p class="error">{{ errors[0] }}</p>
                                 </div>
                             </ValidationProvider>
@@ -52,7 +52,7 @@
                                        required
                                        v-model="user.password"
                                        name="password"
-                                       placeholder="Indiquez votre mot de passe"/>
+                                       placeholder="Mot de passe"/>
                                     <p class="error">{{ errors[0] }}</p>
                                 </div>
                             </ValidationProvider>
@@ -66,7 +66,7 @@
                                        class="form-control"
                                        v-model="user.first_name"
                                        name="first-name"
-                                       placeholder="Indiquez votre prénom"/>
+                                       placeholder="Prénom"/>
                                     <p class="error">{{ errors[0] }}</p>
                                 </div>
                             </ValidationProvider>
@@ -80,7 +80,7 @@
                                        class="form-control"
                                        v-model="user.last_name"
                                        name="last-name"
-                                       placeholder="Indiquez votre nom"/>
+                                       placeholder="Nom"/>
                                     <p class="error">{{ errors[0] }}</p>
                                 </div>
                             </ValidationProvider>

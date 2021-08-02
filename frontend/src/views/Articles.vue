@@ -136,6 +136,7 @@ $color-secondary: #324392;
     background-size: cover!important;
  }
 
+
 h1,h2{
     color: white;
     background: rgb(175, 175, 215 );
@@ -163,7 +164,8 @@ h1,h2{
 ul, li {
     list-style: none;
     width: 100%;
-    margin: auto!important;
+    margin-top: 4em;
+    margin-left: 4em;
 }
 
 a {
@@ -172,7 +174,8 @@ a {
 }
     
 .btn-add {
-    min-width: 150px;
+    min-width: 200px;
+    margin-left: 27em;
 }
 
 .btn-primary{
@@ -203,6 +206,9 @@ a {
         //flex-direction: column;
         //align-items: center;
     }
+    .btn-add {
+    margin-left: 15em;
+    }
 }
    
 //Média query pour adapter la page au smartphone
@@ -213,9 +219,9 @@ a {
     h1 {
         margin-bottom: 0px!important;
     }
-    .btn-add {
-        font-size: 1em!important;
-        
+   .btn-add {
+    margin-left: 5em;
+    margin-top: -2em;
     }
     .card {
         line-height: 20px;

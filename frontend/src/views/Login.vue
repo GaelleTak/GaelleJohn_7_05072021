@@ -16,7 +16,7 @@
                                     id="email" 
                                     type="email" 
                                     v-model="email" 
-                                    placeholder="Indiquez votre adresse email" 
+                                    placeholder="Adresse email" 
                                     required 
                                     autofocus
                                     class="form-control">
@@ -34,7 +34,7 @@
                                        v-model="password" 
                                        required
                                        class="form-control"
-                                       placeholder="Indiquez votre mot de passe">
+                                       placeholder="Mot de passe">
                                 <p class="error">{{ errors[0] }}</p>
                             </div>
                         </ValidationProvider>

@@ -27,6 +27,7 @@ export default {
     z-index: 2;
     max-width: 50%;
     margin-left: 25%;
+    margin-top: 7.5%;
     background-color: rgb(175, 175, 215);
     border-radius: 20px;
     border: 2px solid;

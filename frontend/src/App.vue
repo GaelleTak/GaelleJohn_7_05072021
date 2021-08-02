@@ -164,15 +164,13 @@ h2 {
     z-index: 5;
     background: rgb(175, 175, 215);
     border-radius: 5px;
-    padding: 20px;
+    padding: 20px 17px 10px 50px;
     text-align: left;
 
     & a, li {
         color: #FFF;
         margin-top: 0!important;
-        &:hover {
-            color: $color-primary;
-        }
+        margin-left: -3em;
     }
     &__close {
         text-align: right;

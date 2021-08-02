@@ -55,13 +55,85 @@
                 <p>Prénom: {{ first_name }}</p>
                 <p>Nom: {{  last_name }}</p>
                 <button class="btn account__btn" @click="confirmDelete"><i class="far fa-trash-alt"></i> Supprimer votre compte</button>
+                <button class="btn account__btn" @click=" confirmModification"><i class="fas fa-pencil-alt"></i> Modifier votre compte</button>
                 <button class="btn account__btn" @click="hideAccount"><i class="fas fa-arrow-left"></i> Retour</button>
-            </div>
+
+            </div>            
             <!--Ecran qui demande confirmation pour la suppression du compte-->
             <div v-if="confirmation" class="confirmSuppress">
                 <p>Êtes-vous sûr de vouloir supprimer votre compte ? Toute suppression est définitive.</p>
                 <button type= "button" class="btn confirmSuppress__btn" @click="suppressUser">Supprimer</button>
                 <button type= "button" class="btn confirmSuppress__btn" @click="refreshPage">Annuler</button>
+            </div>
+
+            <!--Ecran qui demande modification du compte-->
+            <div v-if="modification" class="container text-center">
+            <!--Utilisation de Vee-Validate : ValidationObserver pour suspendre la soumission du formulaire à l'existence ou non d'erreurs-->
+            <ValidationObserver v-slot="{handleSubmit }">
+                <form class="formSignup row" @submit.prevent="handleSubmit(createUser)">
+                    <div class="formSignup__box col-12 col-md-7">
+                        <div class="form-group ">
+                            <label for="username">Votre pseudo</label>
+                            <!--Utilisation de Vee-Validate : ValidationProvider, pour tester la validité des données-->
+                            <ValidationProvider name="user.username" rules="required|minmax:3,10"><!--Définition des règles de validité de l'input-->
+                                <div slot-scope="{ errors }">
+                                    <input 
+                                       type="text" 
+                                       class="form-control"
+                                       required
+                                       v-model="user.username"
+                                       name="username"
+                                       placeholder="Pseudo"/>
+                                    <p class="error">{{ errors[0] }}</p><!--Une erreur s'affiche si l'input ne respecte pas les règles de ValidationProvider-->
+                                </div>
+                            </ValidationProvider>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Votre email</label>
+                            <ValidationProvider name="user.email" rules="required|email">
+                                <div slot-scope="{ errors }">
+                                    <input 
+                                           type="email" 
+                                           class="form-control"
+                                           required
+                                           v-model="user.email"
+                                           name="email"
+                                           placeholder="Adresse email"/>
+                                    <p class="error">{{ errors[0] }}</p>
+                                </div>
+                            </ValidationProvider>
+                        </div>
+                        <div class="form-group">
+                            <label for="first-name">Votre prénom</label>
+                            <ValidationProvider name="user.first-name" rules="required|minmax:3,15">
+                                <div slot-scope="{ errors }">
+                                    <input 
+                                       type="text" 
+                                       class="form-control"
+                                       v-model="user.first_name"
+                                       name="first-name"
+                                       placeholder="Prénom"/>
+                                    <p class="error">{{ errors[0] }}</p>
+                                </div>
+                            </ValidationProvider>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Votre nom</label>
+                            <ValidationProvider name="user.last-name" rules="required|minmax:3,15">
+                                <div slot-scope="{ errors }">
+                                    <input 
+                                       type="text" 
+                                       class="form-control"
+                                       v-model="user.last_name"
+                                       name="last-name"
+                                       placeholder="Nom"/>
+                                    <p class="error">{{ errors[0] }}</p>
+                                </div>
+                            </ValidationProvider>
+                        </div>
+                    </div>
+                </form>
+            </ValidationObserver>
             </div>
         </div> 
         <!--Importation du component Footer-->
@@ -76,11 +148,13 @@ import Identification from "../components/Identification"
 import CallToLogin from "../components/CallToLogin"
 import UsersDataServices from "../services/UsersDataServices"
 import { mapGetters, mapState } from 'vuex'  
+import { ValidationProvider, ValidationObserver } from 'vee-validate'
+
     
 export default {
 	name: "Home",
 	components: {
-		Footer, CallToLogin, Identification 
+		Footer, CallToLogin, Identification, ValidationProvider, ValidationObserver
 	},
 	data() {
 		return {
@@ -90,7 +164,8 @@ export default {
             email: "",
             first_name: "",
             last_name: "",
-            confirmation: false
+            confirmation: false,
+            modification: false,
         }
     },
 	computed: {
@@ -156,6 +231,36 @@ export default {
         confirmDelete() {
             return (this.confirmation = true);
         },
+        /**
+        *Fonction de suppression du compte user courant via une requête Axios DELETE
+        * @param {Number} userId
+        */
+        createUser() { 
+            var data = {
+                username: this.user.username,
+                email: this.user.email,
+                password: this.user.password,
+                first_name: this.user.first_name,
+                last_name: this.user.last_name
+            };
+            //Fonction qui lance la requête Axios POST
+            UsersDataServices.signup(data) 
+                .then(response => {
+                    console.log(response.data);
+                    this.setUserId(response.data.userId);
+                    this.setToken(response.data.token);
+                    this.setIsAdmin(response.data.isAdmin);
+                    this.modification = true;
+                    this.$router.push('/');
+                })
+                .catch(error => console.log(error));
+        },
+
+        //Fonction d'affichage de la demande de modification
+        confirmModification() {
+            return (this.modification = true);
+        },
+
         //Fonction de rafraîchissement de la page
         refreshPage() {
             this.$router.push({ path: "/" });

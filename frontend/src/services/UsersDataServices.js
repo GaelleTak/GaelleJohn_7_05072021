@@ -14,6 +14,9 @@ class UsersDataServices {
     getCurrentUser(id) {
         return http.get(`/auth/${id}`);
     }
+    modifyUser(id) {
+        return http.put(`/auth/${id}`);
+    }
     deleteUser(id) {
         return http.delete(`/auth/${id}`);
     }

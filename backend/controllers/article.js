@@ -51,8 +51,8 @@ exports.createArticle = (req, res, next) => {
  exports.modifyArticle = (req, res, next) => {
      //Recherche dans la BDD de l'article à modifier
     console.log(req.params.slug);
-    let sql = "SELECT * FROM Articles WHERE slug = ?";
-    db.query(sql, [req.params.slug], function(err, data) {
+    let sql = "SELECT * FROM Articles WHERE cryptoslug = ?";
+    db.query(sql, [req.params.cryptoslug], function(err, data) {
         if (err) {
             return res.status(400).json({err});
         }
@@ -60,9 +60,8 @@ exports.createArticle = (req, res, next) => {
         //Comparaison de l'id du user courant avec l'id du user ayant posté l'article
         if (articleToModify.user_id === req.user.userId || req.user.isAdmin === 1) {
             //Création du nouveau slug correspondant au nouveau titre
-            let newSlug = slug((req.body.title + new Date().toLocaleDateString('fr-CA')), { lower: true });
-            let sql = `UPDATE Articles SET title = ?, slug = ?, description = ?, subject = ?, lien_web  = ?, user_id = ?, date_post = ? WHERE slug = ?`;
-            let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.lien_web, req.body.user_id, req.body.date_post, req.params.slug];
+            let sql = `UPDATE Articles SET title = ?, slug = ?, description = ?, subject = ?, lien_web  = ?, user_id = ?, date_post = ? WHERE cryptoslug = ?`;
+            let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.lien_web, req.body.user_id, req.body.date_post, req.params.cryptoslug];
             db.query(sql, values, function(err, data, fields) {
                 if (err) {
                     return res.status(400).json({err});
@@ -116,7 +115,7 @@ exports.getAllArticles = (req, res, next) => {
 
 //Fonction qui gère la logique métier de la route GET (affichage d'un article en particulier, sélectionné par son slug)
 exports.getOneArticle = (req, res, next) => {
-    let sql = "SELECT Articles.id, title, slug, description, subject, lien_web, date_post, username, user_id FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.slug = ?";
+    let sql = "SELECT * FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.slug = ?";
     db.query(sql, [req.params.slug], function(err, data, fields) {
     if (err) {
         return res.status(404).json({err});
