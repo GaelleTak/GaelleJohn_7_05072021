@@ -81,7 +81,7 @@
                         </div>
                         <div class="col-12 justify-content-center">
                         <div class="form-group justify-content-center">
-                            <input @change="selectFile()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
+                            <input @change="selectFile()" type="file" ref="file" name="images" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
                         </div>
                         </div>
                         <div class="post-btns">
@@ -151,8 +151,11 @@ export default {
         * @param {String} Authorization qui doit contenir le token
         */
        selectFile() {
+       
             this.file = this.$refs.file.files[0];
             this.newImage = URL.createObjectURL(this.file)
+            console.log(this.newImage)
+
         },
         saveArticle(data, Authorization) {
             data = {
@@ -160,7 +163,7 @@ export default {
                 slug: this.article.title,
                 description: this.article.description,
                 subject: this.article.subject,
-                images: this.article.images,
+                images: this.newImage,
                 lien_web: this.article.lien_web,
                 user_id: this.userId,
                 date_post: new Date().toLocaleDateString('fr-CA'), 
