@@ -55,7 +55,6 @@
                 <p>Prénom: {{ first_name }}</p>
                 <p>Nom: {{  last_name }}</p>
                 <button class="btn account__btn" @click="confirmDelete"><i class="far fa-trash-alt"></i> Supprimer votre compte</button>
-                <button class="btn account__btn" @click=" confirmModification"><i class="fas fa-pencil-alt"></i> Modifier votre compte</button>
                 <button class="btn account__btn" @click="hideAccount"><i class="fas fa-arrow-left"></i> Retour</button>
 
             </div>            
@@ -254,11 +253,6 @@ export default {
                     this.$router.push('/');
                 })
                 .catch(error => console.log(error));
-        },
-
-        //Fonction d'affichage de la demande de modification
-        confirmModification() {
-            return (this.modification = true);
         },
 
         //Fonction de rafraîchissement de la page

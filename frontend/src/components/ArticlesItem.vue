@@ -16,21 +16,21 @@
             <div class="card-header card__header">
                 <ul class="list-group">
                     <li class="list-group-item card__comments">
-                        <a href="#commentsList"><i class="far fa-eye"></i> Voir tous les commentaires</a>
+                        <a href="#commentsList"><i class="far fa-eye"></i> Voir tous les commentaires........</a>
                         <a :href="'/articles/' + slug + '/comments'"><i class="far fa-edit"></i> Poster un commentaire</a>
                     </li>
                     <li class="list-group-item">
                         <!--La section suivante ne s'affiche que si le user a liké ou disliké l'article-->
                         <div v-if="liked || disliked" >
                             <!--La section suivante ne s'affiche que si le user a liké l'article : donc le pouce du like est rouge et celui du dislike est grisé-->
-                            <div v-if="liked">
-                                <span class="card__stats">{{ totalLikes }} </span><span @click="deleteThumb" class="thumbs thumbs__up thumbs__red"><i class="far fa-thumbs-up thumbs"></i></span>
-                                <span class="thumbs__down thumbs disabled"><i class="far fa-thumbs-down thumbs"></i></span><span class="card__stats"> {{ totalDislikes }}</span>
+                            <div v-if="liked" >
+                                <span class="card__stats">{{ totalLikes }} </span><span @click="deleteThumb" class="thumbs thumbs__up thumbs__red" ><i class="far fa-thumbs-up thumbs" ></i></span>
+                                <span class="thumbs__down thumbs disabled"><i class="far fa-thumbs-down thumbs" ></i></span><span class="card__stats"> {{ totalDislikes }}</span>
                             </div>
                             <!--La section suivante ne s'affiche que si le user a disliké l'article : : donc le pouce du dislike est rouge et celui du like est grisé-->
                             <div v-else>
-                                <span class="card__stats">{{ totalLikes }} </span><span class="thumbs thumbs__up disabled"><i class="far fa-thumbs-up thumbs"></i></span>
-                                <span @click="deleteThumb" class="thumbs thumbs__down thumbs__red"><i class="far fa-thumbs-down thumbs"></i></span><span class="card__stats"> {{ totalDislikes }}</span>
+                                <span class="card__stats">{{ totalLikes }} </span><span class="thumbs thumbs__up disabled" ><i class="far fa-thumbs-up thumbs" ></i></span>
+                                <span @click="deleteThumb" class="thumbs thumbs__down thumbs__red" ><i class="far fa-thumbs-down thumbs" ></i></span><span class="card__stats" > {{ totalDislikes }}</span>
                             </div>
                         </div>
                         <!--La section suivante s'affiche si le user n'a pas encore liké ou disliké l'article-->
@@ -84,6 +84,9 @@ export default {
         subject: {
 			type: String,
 			required: true
+		},
+        images: {
+			type: String,
 		},
         lien_web: {
 			type: String,
@@ -166,7 +169,7 @@ $color-bkg: #f1f1f2;
             }
         }
         & li {
-            height: 40px!important;
+            height: 50px!important;
             background: $color-bkg;
         }
     }

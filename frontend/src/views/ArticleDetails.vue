@@ -114,6 +114,17 @@
                                 <span> Sujet de l'article : </span>
                             </div>
                             <div class="form-group">
+                                <div class="col-12 justify-content-center text-center">
+                                    <img :src="newImage" class="w-50 rounded">
+                                </div>
+                                <div class="col-12 justify-content-center">
+                                <div class="form-group justify-content-center">
+                                    <label for="File">Choisir une nouvelle photo</label>
+                                    <input @change="selectFile()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
+                                </div>
+                            </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="lien-web">Lien web de l'article</label>
                                 <input 
                                        type="text" 
@@ -209,6 +220,10 @@ export default {
                 })
                 .catch(error => console.log(error));
         },
+        selectFile() {
+            this.file = this.$refs.file.files[0];
+            this.newImage = URL.createObjectURL(this.file)
+        },
         //Fonction d'affichage du formulaire pour modifier l'article
         showUpdate() {  
             return (this.askForUpdate = true);
@@ -233,6 +248,7 @@ export default {
                 title: this.currentArticle[0].title,
                 description: this.currentArticle[0].description,
                 subject: this.currentArticle[0].subject,
+                images: this.currentArticle[0].images,
                 lien_web: this.currentArticle[0].lien_web,
                 user_id: this.currentArticle[0].user_id,
                 date_post: new Date().toLocaleDateString('fr-CA'), 

@@ -37,6 +37,7 @@ app.use(bodyParser.json());
 
 //Définit les route des quatre routeurs "Article"/"User"/"Comment"/"Thumb"
 app.use("/articles", articleRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/auth", userRoutes);
 app.use('/articles/:slug/comments', commentRoutes);
 app.use('/articles/:slug/', thumbRoutes);
