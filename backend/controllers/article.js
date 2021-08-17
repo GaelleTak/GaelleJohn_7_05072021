@@ -43,7 +43,10 @@ exports.createArticle = (req, res, next) => {
     //Création d'un slug composé du titre de l'article + la date du post de l'article
     let newSlug = slug((req.body.slug + new Date().toLocaleDateString('fr-CA')), { lower: true });
     let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.images, req.body.lien_web, req.body.user_id, req.body.date_post];
-    db.query(sql, [values], function(err, data, fields) {
+    let article = new Article({
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+    });
+    db.query(sql, [values], article, function(err, data, fields) {
         if (err) {
             console.log(err);
             return res.status(400).json({err});
