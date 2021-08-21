@@ -1,3 +1,4 @@
+
 //CONFIGURATION DU ROUTER VUE
 
 import Vue from 'vue'

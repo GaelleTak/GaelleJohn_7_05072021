@@ -120,8 +120,10 @@
                                 <div class="col-12 justify-content-center">
                                 <div class="form-group justify-content-center">
                                     <label for="File">Choisir une nouvelle photo</label>
-                                    <input @change="selectFile()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
+                                    <input @change="addImage" type="file" id="myfile" name="myfile" accept= "image/*">
                                 </div>
+                            <SubmitButton class="btn-custom" @click="postPostCreate" value="Publier"/>
+
                             </div>
                             </div>
                             <div class="form-group">
@@ -160,7 +162,7 @@ import CommentsItem from "../components/CommentsItem"
 import ArticlesDataServices from "../services/ArticlesDataServices"
 import CommentsDataServices from "../services/CommentsDataServices"
 import ThumbsDataServices from "../services/ThumbsDataServices"
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
     
 export default {
     name: "ArticleDetails",
@@ -191,14 +193,21 @@ export default {
         ...mapGetters(['isUserAdmin']),
         ...mapState({ token: "token"}),
         ...mapState({ userId: "userId"}),
-        ...mapState({ isAdmin: "isAdmin"})
+        ...mapState({ isAdmin: "isAdmin"}),
+        ...mapActions(['postPostCreate']),
+
     },
     methods: {
+
+        addImage(event) {
+            this.$store.state.post.img = event.target.files[0]
+        },
         /**
         *Fonction d'affichage d'un article particulier via une requête Axios GET
         * @param {String} slug - Slug de l'article concerné, visible dans l'URL
         * @param {String} Authorization qui doit contenir le token 
         */
+
         getOneArticle(slug, Authorization) {
             Authorization = `Bearer ${this.token}`;
             //Fonction qui déclenche la requête GET via Axios
