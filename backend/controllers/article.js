@@ -17,7 +17,6 @@ exports.validate = (method) => {
         body('title').exists().isAlpha(),
         body('description').optional().isAlpha(),
         body('subject').exists().isAlpha(),
-        body('images').optional().isURL(),
         body('lien_web').optional().isURL()
        ]   
     }
@@ -39,14 +38,9 @@ exports.validate = (method) => {
 //Fonction qui gère la logique métier de la route POST (ajout d'un nouvel article)
 exports.createArticle = (req, res, next) => {
     console.log(req.body)
-    let sql = `INSERT INTO Articles(title, slug, description, subject, images, lien_web, user_id, date_post) VALUES (?)`;
-    //Création d'un slug composé du titre de l'article + la date du post de l'article
+    let sql = `INSERT INTO Articles(title, slug, description, subject, lien_web, user_id, date_post) VALUES (?)`;    //Création d'un slug composé du titre de l'article + la date du post de l'article
     let newSlug = slug((req.body.slug + new Date().toLocaleDateString('fr-CA')), { lower: true });
-    let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.images, req.body.lien_web, req.body.user_id, req.body.date_post];
-    let article = new Article({
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-    });
-    db.query(sql, [values], article, function(err, data, fields) {
+    let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.lien_web, req.body.user_id, req.body.date_post];    db.query(sql, [values], function(err, data, fields) {
         if (err) {
             console.log(err);
             return res.status(400).json({err});
@@ -60,8 +54,8 @@ exports.createArticle = (req, res, next) => {
  exports.modifyArticle = (req, res, next) => {
      //Recherche dans la BDD de l'article à modifier
     console.log(req.params.slug);
-    let sql = "SELECT * FROM Articles WHERE cryptoslug = ?";
-    db.query(sql, [req.params.cryptoslug], function(err, data) {
+    let sql = "SELECT * FROM Articles WHERE slug = ?";
+    db.query(sql, [req.params.slug], function(err, data) {
         if (err) {
             return res.status(400).json({err});
         }
@@ -69,9 +63,8 @@ exports.createArticle = (req, res, next) => {
         //Comparaison de l'id du user courant avec l'id du user ayant posté l'article
         if (articleToModify.user_id === req.user.userId || req.user.isAdmin === 1) {
             //Création du nouveau slug correspondant au nouveau titre
-            let sql = `UPDATE Articles SET title = ?, slug = ?, description = ?, subject = ?, images = ?, lien_web  = ?, user_id = ?, date_post = ? WHERE cryptoslug = ?`;
-            let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.images,req.body.lien_web, req.body.user_id, req.body.date_post, req.params.cryptoslug];
-            db.query(sql, values, function(err, data, fields) {
+            let sql = `UPDATE Articles SET title = ?, slug = ?, description = ?, subject = ?, lien_web  = ?, user_id = ?, date_post = ? WHERE cryptoslug = ?`;
+            let values = [req.body.title, newSlug, req.body.description, req.body.subject, req.body.lien_web, req.body.user_id, req.body.date_post, req.params.cryptoslug];            db.query(sql, values, function(err, data, fields) {
                 if (err) {
                     return res.status(400).json({err});
                 }
@@ -112,8 +105,7 @@ exports.deleteArticle = (req, res, next) => {
 
 //Fonction qui gère la logique métier de la route GET (affichage de tous les articles)
 exports.getAllArticles = (req, res, next) => {
-  let sql = "SELECT Articles.id, title, slug, description, subject, images, lien_web, date_post, username FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.deleted = false ORDER BY date_post DESC"; 
-  db.query(sql, function(err, data) {
+    let sql = "SELECT Articles.id, title, slug, description, subject, lien_web, date_post, username FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.deleted = false ORDER BY date_post ASC";   db.query(sql, function(err, data) {
     if (err) {
         return res.status(400).json({err});
     } 

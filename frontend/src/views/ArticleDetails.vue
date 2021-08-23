@@ -51,7 +51,6 @@
                 
                 <!--La section suivante des boutons "suppression" et "modification" ne s'affiche que si le user est celui qui a posté l'article' à l'origine ou s'il est administrateur-->
                 <div v-if="validUser || isAdmin" class="col-12 col-md-2 action valid">
-                    <button type= "button" class="btn btn-primary action__btn" @click="showUpdate"><i class="far fa-edit"></i> Modifier</button><br/>
                     <p class="text">{{ messageUpdate }}</p>
                     <button type= "button" class="btn btn-primary btn-suppress action__btn" @click="confirmDelete"><i class="far fa-trash-alt"></i> Supprimer</button>
                     <!--Message qui ne s'affiche que quand le user clique sur le bouton "suppression"-->
@@ -114,19 +113,6 @@
                                 <span> Sujet de l'article : </span>
                             </div>
                             <div class="form-group">
-                                <div class="col-12 justify-content-center text-center">
-                                    <img :src="newImage" class="w-50 rounded">
-                                </div>
-                                <div class="col-12 justify-content-center">
-                                <div class="form-group justify-content-center">
-                                    <label for="File">Choisir une nouvelle photo</label>
-                                    <input @change="addImage" type="file" id="myfile" name="myfile" accept= "image/*">
-                                </div>
-                            <SubmitButton class="btn-custom" @click="postPostCreate" value="Publier"/>
-
-                            </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="lien-web">Lien web de l'article</label>
                                 <input 
                                        type="text" 
@@ -134,7 +120,6 @@
                                        v-model="currentArticle[0].lien_web"
                                        name="lien-web" />
                             </div>
-                            <button class="btn btn-success" @click="updateArticle" aria-label="Valider">Enregistrer vos modifications</button>
                         </div>
                     </div>
                 </div>
@@ -229,10 +214,6 @@ export default {
                 })
                 .catch(error => console.log(error));
         },
-        selectFile() {
-            this.file = this.$refs.file.files[0];
-            this.newImage = URL.createObjectURL(this.file)
-        },
         //Fonction d'affichage du formulaire pour modifier l'article
         showUpdate() {  
             return (this.askForUpdate = true);
@@ -252,26 +233,23 @@ export default {
         * @param {String} Authorization qui doit contenir le token 
         * @param {Object} data - Nouvelles données de l'article
         */
-        updateArticle(slug, data, Authorization) {
+       updateComment(cryptoslug, slug, data, Authorization) {
             data = {
-                title: this.currentArticle[0].title,
-                description: this.currentArticle[0].description,
-                subject: this.currentArticle[0].subject,
-                images: this.currentArticle[0].images,
-                lien_web: this.currentArticle[0].lien_web,
-                user_id: this.currentArticle[0].user_id,
+                content: this.currentComment.content,
+                user_id: this.userId,
                 date_post: new Date().toLocaleDateString('fr-CA'), 
             };
+            console.log(data);
             Authorization = `Bearer ${this.token}`;
-            //Fonction qui déclenche la requête PUT via Axios
-            ArticlesDataServices.update(this.$route.params.slug, data, { Authorization }) 
+            //Fonction qui lance la requête PUT via Axios
+            CommentsDataServices.update(this.$route.params.cryptoslug, this.$route.params.slug, data, { Authorization }) 
                 .then(response => {
                     console.log(response.data);
-                    this.messageUpdate = "Cet article a été modifié avec succès.";
-                    this.askForUpdate = false;
+                    this.message = "Votre commentaire a bien été modifié";
+                    this.updateIsAsked = false;
                 })
             .catch(error => console.log(error));
-        }, 
+        },
         /**
         *Fonction de suppression de l'article particulier affiché via une requête Axios DELETE
         * @param {String} slug - Slug de l'article concerné, visible dans l'URL

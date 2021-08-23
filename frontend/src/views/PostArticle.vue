@@ -76,14 +76,6 @@
                                 </div>
                             </ValidationProvider>
                         </div>
-                        <div class="form-group">
-                            <img :src="newImage" class="w-50 rounded">
-                        </div>
-                        <div class="col-12 justify-content-center">
-                        <div class="form-group justify-content-center">
-                            <input @change="selectFile()" type="file" ref="file" name="images" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png">
-                        </div>
-                        </div>
                         <div class="post-btns">
                             <button class="btn btn-success" type="submit" value="Submit" v-bind:disabled="invalid"><i class="fas fa-check"></i> Valider ce post</button>
                             <router-link to="/articles" class="btn-return" aria-label="Lien vers la liste d'articles"><button type= "button" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Retour à la liste</button></router-link>
@@ -129,8 +121,6 @@ export default {
                 slug: "",
                 description: "", 
                 subject: "",
-                images:"",
-                newImage:"",
                 lien_web: "",
             },
             submitted: false,
@@ -150,20 +140,12 @@ export default {
         * @param {Object} data - Données du nouvel article
         * @param {String} Authorization qui doit contenir le token
         */
-       selectFile() {
-       
-            this.file = this.$refs.file.files[0];
-            this.newImage = URL.createObjectURL(this.file)
-            console.log(this.newImage)
-
-        },
         saveArticle(data, Authorization) {
             data = {
                 title: this.article.title,
                 slug: this.article.title,
                 description: this.article.description,
                 subject: this.article.subject,
-                images: this.newImage,
                 lien_web: this.article.lien_web,
                 user_id: this.userId,
                 date_post: new Date().toLocaleDateString('fr-CA'), 
@@ -199,11 +181,11 @@ $color-secondary: #324392;
 
 .formArticle {
     position: absolute;
-    top: 20%;
+    top: 25%;
     z-index: 2;
     max-width: 60%!important;
     margin-left: 15%!important;
-    background-color: rgb(175, 175, 215);
+    background-color: rgb(106, 106, 168);
     border-radius: 20px;
     border: 2px solid;
     padding: 20px;

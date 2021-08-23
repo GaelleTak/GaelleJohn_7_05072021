@@ -34,7 +34,6 @@
                                     :slug="article.slug"
                                     :description="article.description"
                                     :subject="article.subject"
-                                    :images="article.images"
                                     :lien_web="article.lien_web"
                                     :username="article.username"
                                     :date_post="article.date_post" 
