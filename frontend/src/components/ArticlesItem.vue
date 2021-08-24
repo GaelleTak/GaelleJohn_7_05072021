@@ -51,13 +51,12 @@
             </div>
             <div v-if="presenceOfLinks === true" card__links >
                 <a :href="lien_web" target="_blank" class="btn btn-primary card__btnWeb" aria-label="Lien vers le site web">Lien vers l'article</a>
-                <iframe :src="lien_web" width="300px" height="200px" title="Aperçu du site web" aria-label="Aperçu du site web" sandbox class="card__iframe"></iframe>
             </div>
             <div v-else card__links >
             </div>
         </div>
     </div>
-</template>
+</template>;
 
 
 <script>
