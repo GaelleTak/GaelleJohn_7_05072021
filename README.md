@@ -1,26 +1,31 @@
 GROUPOMANIA
 
---Backend--
+--INSTALLATION--
 
-npm install
-npm start
+Cloner ce projet depuis GitHub : 
+https://github.com/GaelleTak/GaelleJohn_7_05072021.git
 
---Frontend--
+--BACKEND--
 
-npm install
-npm run serve
+1. Ouvrir le terminal, aller dans le répertoire backend et exécuter npm install pour installer les dépendances.
 
+2. Ouvrir le fichier .env et entrez les informations nécessaires (pour les besoins de la soutenance, j'ai laissé un fichier .env pré-rempli).
 
-Créez la base de donnée avec le fichier sous le dossier backend - bd
+3. Pour créer la base de données utilisez le fichier groupomania.sql du dossier backend > bd après avoir créé la base de données groupomania.
+Vous aurez ainsi immédiatement accès aux utilisateurs dont:
+    - Admin:
+    email: admin@gmail.com; 
+    mot de passe: admin01
 
-Users:
+    - Autre:
+    email: germaine@gmail.com; 
+    mot de passe:  gege22
 
-email: germaine@gmail.com; mot de passe:  gege22
-email: gerald@gmail.com; mot de passe:  gerald26
-email: norbert@gmail.com; mot de passe:  nono36
-email: francis@gmail.com; mot de passe:  sicnarf
-email: linette@gmail.com; mot de passe:  lili21
-email: francine@gmail.com; mot de passe:  france32
+4. Exécuter la commande npm start pour lancer le serveur de développement.
 
-Users - Admin:
-email: admin@gmail.com; mot de passe: admin01
+--FRONTEND--
+
+1. Ouvrir le terminal, aller dans le répertoire frontend et exécuter npm install pour installer les dépendances.
+
+2. Le projet a été généré avec VueJS: exécuter npm run serve pour lancer le serveur de développement.
+npm run serve.
