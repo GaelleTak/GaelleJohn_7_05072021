@@ -11,7 +11,7 @@ https://github.com/GaelleTak/GaelleJohn_7_05072021.git
 
 2. Ouvrir le fichier .env et entrez les informations nécessaires (pour les besoins de la soutenance, j'ai laissé un fichier .env pré-rempli).
 
-3. Pour créer la base de données utilisez le fichier groupomania.sql du dossier backend > bd après avoir créé la base de données groupomania.
+3. Pour créer la base de données utilisez le fichier groupomania.sql du dossier backend cd backen> bd après avoir créé la base de données groupomania.
 Vous aurez ainsi immédiatement accès aux utilisateurs dont:
     - Admin:
     email: admin@gmail.com; 
