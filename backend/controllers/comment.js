@@ -106,7 +106,7 @@ exports.deleteComment = (req, res, next) => {
 //Fonction qui gère la logique métier de la route GET (affichage de tous les commentaires)
 exports.getAllComments = (req, res, next) => { 
     let articleSlug = req.params.slug; 
-    let sql = "SELECT Comments.id, Comments.cryptoslug, Comments.user_id, content, Comments.date_post, username, Articles.title, Articles.slug FROM Comments INNER JOIN Users ON Comments.user_id = Users.id INNER JOIN Articles ON Comments.article_id = Articles.id WHERE Articles.slug = ? AND Comments.deleted = false ORDER BY Comments.date_post ASC"; 
+    let sql = "SELECT Comments.id, Comments.cryptoslug, Comments.user_id, content, Comments.date_post, username, Articles.title, Articles.slug FROM Comments INNER JOIN Users ON Comments.user_id = Users.id INNER JOIN Articles ON Comments.article_id = Articles.id WHERE Articles.slug = ? AND Comments.deleted = false ORDER BY Comments.id DESC"; 
     db.query(sql, [articleSlug], function(err, data) {
         if (err) {
             return res.status(400).json({err});
