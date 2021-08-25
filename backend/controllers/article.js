@@ -105,7 +105,7 @@ exports.deleteArticle = (req, res, next) => {
 
 //Fonction qui gère la logique métier de la route GET (affichage de tous les articles)
 exports.getAllArticles = (req, res, next) => {
-    let sql = "SELECT Articles.id, title, slug, description, subject, lien_web, date_post, username FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.deleted = false ORDER BY date_post DESC";   db.query(sql, function(err, data) {
+    let sql = "SELECT Articles.id, title, slug, description, subject, lien_web, date_post, username FROM Articles INNER JOIN Users ON Articles.user_id = Users.id WHERE Articles.deleted = false ORDER BY date_post ASC";   db.query(sql, function(err, data) {
     if (err) {
         return res.status(400).json({err});
     } 
